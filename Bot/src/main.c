@@ -14,9 +14,10 @@ int main(){
     SetConsoleCP(1252);
 	srand(time(NULL)); 
 	static const char keywords[MAXWORDS][MAXCHARS] = {"exit","Putin","btc","iphone","game"};
+	static const char btc1[MAXWORDS][MAXCHARS] = {"[Bot] :\tYou'll get rich if you get one of those. And you can share it with me"};
 	char cadena[MAXCHARS]="";
-	char *word, *Words;
-	int i=0,length=0,lengthKey=0,resul=0;
+	char *word;
+	int i=0;
 	bool find = false;
 
 
@@ -35,19 +36,10 @@ int main(){
 		find = false;
 		i=0;
 		while (i <= MAXWORDS){ //* Bucle para compara palabras
-			length = strlen(word);
-			lengthKey = strlen(keywords[i]);
-			if (length == lengthKey && (strcmpi(keywords[i],word)==0 || strcmpi(keywords[i],word)<0 || strcmpi(keywords[i],word)>0))
-			{
-				if(strstr(word,keywords[i])!=NULL){
-					
-					printf("EEES");
-					find = true;
-					// break;
-				}
+			if(strcmpi(keywords[i],word)==0){
+				find = true;
+				break;
 			}
-			
-			
 			i++;
 		}
 		if (find){break;}
@@ -55,22 +47,17 @@ int main(){
 	}
 	if(find)
 	{
-		printf("Se encontró\n");
+		setColor(RED);
+		printf("%s\n",btc1);
 	}else{
 		printf("No se encontró\n");
-	}
-	
-
-	printf("\n\nFin\n\n");
-
-	for ( i = 0; i < 3; i++)
-	{
-		
 	}
 
 	getch();
 	return 0;
 }
+
+//  && strstr(word,keywords[i])!=NULL
 
 // fgets(cadena,llargada,stdin);
 // cadena[strcspn(cadena, "\n")] = 0; Para limpiar el buffer
@@ -89,3 +76,16 @@ int main(){
 //     printf("%s\n", word);
 //     word = strtok(NULL, " ");
 // }
+
+//! Frases del BOT
+//? BTC
+// "[Bot] :\tYou'll get rich if you get one of those. And you can share it with me."
+// "[Bot] :\tThe Bitcoin is a cryptocurrency that now has a value of 19.029,60 $"
+// "[Bot] :\tAre you a cryptobro? Because I am..."
+//? Iphone
+// "[Bot] :\tThe iphone is a very overrated brand, and very expensive."
+// "[Bot] :\tDo you hate apple people? Because I do."
+// "[Bot] :\tI was created by someone who has an iphone. I hate him :)"
+//? GAME
+// "[Bot] :\tI love video games. My favorite is sekiro, I should try it."
+// "[Bot] :\tI love video games. My favorite is sekiro, I should try it."
