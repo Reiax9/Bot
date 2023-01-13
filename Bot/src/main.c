@@ -40,13 +40,19 @@ int main(){
 	printf("------------------------------------------------\n\n");
 
 	printf("Enter one of the following words: exit, PC, btc, iphone, game\n\n");
+	setColor(RED);
+	printf("[Bot] :\tI'm awake. I'm ReiaxBot. I don't know what you want but don't bother too much.\n");
+	printf("[Bot] :\tWhat do you want?");
 	do{
-		setColor(WHITE);
+		setColor(CYAN);
+		// Input de usuario
 		printf("\n[USER]:\t");
 		fgets(cadena, MAXCHARS, stdin);
-		cadena[strcspn(cadena, "\n")] = 0; //Para limpiar el buffer
-
-		
+		cadena[strcspn(cadena, "\n")] = 0; 
+		// Elimina el ? para que el filtro pueda encontrar la palabra
+		length = strlen(cadena);
+		for ( i = 0; i < length; i++){if (cadena[i] == '?'){ cadena[i] = ' ';}}
+		//TODO Busqueda de la palabra
 		word = strtok(cadena, " "); //? Fragmento la frase del usuario
 		while (word != NULL) { //! Filtro para buscar una palabra en la frase de usuario
 			find = false;
