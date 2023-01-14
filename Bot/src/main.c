@@ -6,6 +6,7 @@
 #include <conio.h>
 #include <stdbool.h>
 #include "rlutil.h"
+#define MAXPHRASES 3	
 #define MAXWORDS 5
 #define MAXCHARS 128
 
@@ -14,21 +15,21 @@ int main(){
     SetConsoleCP(1252);
 	srand(time(NULL)); 
 	static const char keywords[MAXWORDS][MAXCHARS] = {"exit","PC","btc","iphone","game"};
-	char cadBtc1[] = "[Bot] :\tYou'll get rich if you get one of those. And you can share it with me.";
-	char cadBtc2[] = "[Bot] :\tThe Bitcoin is a cryptocurrency that now has a value of 19.029,60 $";
-	char cadBtc3[] = "[Bot] :\tAre you a cryptobro? Because I am...";
-	char cadPc1[] = "[Bot] :\tPCs are a great advance in technology, thanks to it I exist :D";
-	char cadPc2[] = "[Bot] :\tI recommend a pc of the msi brand. Just like the same pc I was created.";
-	char cadPc3[] = "[Bot] :\tSpeaking about PCs. Never buy a mac...";
-	char cadGame1[] = "[Bot] :\tI love video games. My favorite is sekiro, I should try it.";
-	char cadGame2[] = "[Bot] :\tGames like 'Call of Duty' and 'FIFA' are dead. Assimilate it.";
-	char cadGame3[] = "[Bot] :\tI recommend you 'hollow knight' is a very nice indie game and its gameplay is very good.";
-	char cadIphone1[] = "[Bot] :\tThe iphone is a very overrated brand, and very expensive.";
-	char cadIphone2[] = "[Bot] :\tDo you hate apple people? Because I do.";
-	char cadIphone3[] = "[Bot] :\tI was created by someone who has an iphone. I hate him :)";
-	char cadExit1[] = "[Bot] :\tGoodbye my friend! i hope to see you later. ;)";
-	char cadExit2[] = "[Bot] :\tsee you later bro";
-	char cadExit3[] = "[Bot] :\tGoodbye, I hope you enjoyed talking to me";
+	static const char cadBtc[MAXPHRASES][MAXCHARS] = {"[Bot] : You'll get rich if you get one of those. And you can share it with me.",
+														"[Bot] : The Bitcoin is a cryptocurrency that now has a value of 19.029,60 $",
+														"[Bot] : Are you a cryptobro? Because I am..."};
+	static const char cadPc[MAXPHRASES][MAXCHARS] = {"[Bot] : PCs are a great advance in technology, thanks to it I exist :D",
+													    "[Bot] : I recommend a pc of the msi brand. Just like the same pc I was created.",
+														"[Bot] : Speaking about PCs. Never buy a mac..."};
+	static const char cadGame[MAXPHRASES][MAXCHARS]  = {"[Bot] : I love video games. My favorite is sekiro, I should try it.",
+														"[Bot] : Games like 'Call of Duty' and 'FIFA' are dead. Assimilate it.",
+														"[Bot] : I recommend you 'hollow knight' is a very nice indie game and its gameplay is very good."};
+	static const char cadIphone[MAXPHRASES][MAXCHARS]  = {"[Bot] : The iphone is a very overrated brand, and very expensive.",
+														"[Bot] : Do you hate apple people? Because I do.",
+														"[Bot] : I was created by someone who has an iphone. I hate him :)"};
+	static const char cadExit[MAXPHRASES][MAXCHARS]  = {"[Bot] : Goodbye my friend! i hope to see you later. ;)",
+														"[Bot] : see you later bro",
+														"[Bot] : Goodbye, I hope you enjoyed talking to me"};
 	char cadena[MAXCHARS]="";
 	char *word;
 	int i=0,random,noKnow,ask,length;
@@ -70,49 +71,19 @@ int main(){
 		setColor(RED);	
 		if(find)
 		{
-			random = rand()% 3;
+			random = rand()% MAXPHRASES; // Cambiar numero a una constante de cadena REVISARRRR
 			switch (i){
 
-			case 0:
-				switch (random)	//! Respuestas aleatorias de Exit
-				{
-				case 0:printf("%s",cadExit1);break;
-				case 1:printf("%s",cadExit2);break;
-				case 2:printf("%s",cadExit3);break;
-				}
-					break;
-			case 1:
-				switch (random){ //! Respuestas aleatorias de PC
+			case 0:printf("%d: %s",random,cadExit[random]);break;//! Respuestas aleatorias de Exit
 
-				case 0:printf("%s",cadPc1);break;
-				case 1:printf("%s",cadPc2);break;
-				case 2:printf("%s",cadPc3);break;
-				}
-					break;
-			case 2:
+			case 1:printf("%d: %s",random,cadPc[random]);break; //! Respuestas aleatorias de Pc
 
-				switch (random){ //! Respuestas aleatorias de BTC
-				case 0:printf("%s",cadBtc1);break;
-				case 1:printf("%s",cadBtc2);break;
-				case 2:printf("%s",cadBtc3);break;
-				}
-					break;
-			case 3:
+			case 2:printf("%d: %s",random,cadBtc[random]);break; //! Respuestas aleatorias de BTC
+
+			case 3:printf("%d: %s",random,cadIphone[random]);break; //! Respuestas aleatorias de Iphone
 			
-				switch (random){ //! Respuestas aleatorias de Iphone
-				case 0:printf("%s",cadIphone1);break;
-				case 1:printf("%s",cadIphone2);break;
-				case 2:printf("%s",cadIphone3);break;
-				}
-					break;
-			case 4:
+			case 4:printf("%d: %s",random,cadGame[random]);break; //! Respuestas aleatorias de GAME
 
-				switch (random){ //! Respuestas aleatorias de GAME
-				case 0:printf("%s",cadGame1);break;
-				case 1:printf("%s",cadGame2);break;
-				case 2:printf("%s",cadGame3);break;
-				}
-					break;
 			}
 			
 		}else{
@@ -157,7 +128,7 @@ int main(){
 // strlen(cad) - Cuenta
 // strcat(cad1,cad2) - Concatena
 // strcpy(cad1,cad2) - Machaca
-// strncpy(cad1,cad2,longitud) - Machaca controlando el tamaño de la palabra
+// strncpy(cad1,cad2,longitud) - Machaca controlando el tamaï¿½o de la palabra
 // strcmp(cad1,cad2) - Compara (Case Sensitive)
 // strcmpi(cad1,cad2) - Compara (Case Insesitive)
 // strstr(cad1,cad2) - Busca dentro de la cadena principal
