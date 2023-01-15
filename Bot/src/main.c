@@ -8,6 +8,8 @@
 #include "rlutil.h"
 #define MAXPHRASES 3	
 #define MAXWORDS 5
+#define MAXRANDOM 5
+#define MAXASKRANDOM 5
 #define MAXCHARS 128
 
 int main(){
@@ -15,24 +17,35 @@ int main(){
     SetConsoleCP(1252);
 	srand(time(NULL)); 
 	static const char keywords[MAXWORDS][MAXCHARS] = {"exit","PC","btc","iphone","game"};
-	static const char cadBtc[MAXPHRASES][MAXCHARS] = {"[Bot] : You'll get rich if you get one of those. And you can share it with me.",
+	//* Frases Bot
+	static const char cadBtc[MAXPHRASES][MAXCHARS] = {  "[Bot] : You'll get rich if you get one of those. And you can share it with me.",
 														"[Bot] : The Bitcoin is a cryptocurrency that now has a value of 19.029,60 $",
 														"[Bot] : Are you a cryptobro? Because I am..."};
-	static const char cadPc[MAXPHRASES][MAXCHARS] = {"[Bot] : PCs are a great advance in technology, thanks to it I exist :D",
+	static const char cadPc[MAXPHRASES][MAXCHARS] = {   "[Bot] : PCs are a great advance in technology, thanks to it I exist :D",
 													    "[Bot] : I recommend a pc of the msi brand. Just like the same pc I was created.",
 														"[Bot] : Speaking about PCs. Never buy a mac..."};
 	static const char cadGame[MAXPHRASES][MAXCHARS]  = {"[Bot] : I love video games. My favorite is sekiro, I should try it.",
 														"[Bot] : Games like 'Call of Duty' and 'FIFA' are dead. Assimilate it.",
 														"[Bot] : I recommend you 'hollow knight' is a very nice indie game and its gameplay is very good."};
-	static const char cadIphone[MAXPHRASES][MAXCHARS]  = {"[Bot] : The iphone is a very overrated brand, and very expensive.",
+	static const char cadIphone[MAXPHRASES][MAXCHARS]= {"[Bot] : The iphone is a very overrated brand, and very expensive.",
 														"[Bot] : Do you hate apple people? Because I do.",
 														"[Bot] : I was created by someone who has an iphone. I hate him :)"};
 	static const char cadExit[MAXPHRASES][MAXCHARS]  = {"[Bot] : Goodbye my friend! i hope to see you later. ;)",
 														"[Bot] : see you later bro",
 														"[Bot] : Goodbye, I hope you enjoyed talking to me"};
+	static const char cadRandom[MAXRANDOM][MAXCHARS] = {"[Bot] : Mmm, maybe you're right but I'm not really sure.",
+														"[Bot] : I'm not sure, but I'll do my best to help you.",
+														"[Bot] : What you say is possible, but I need more information to continue.",
+														"[Bot] : I don't know what to say about that.",
+														"[Bot] : I don't know how to respond to that..."};
+	static const char cadAsk[MAXASKRANDOM][MAXCHARS] = {"[Bot] : Well, how can I help you?",
+														"[Bot] : Anything else you want to tell me?",
+														"[Bot] : Do you want to ask me about something?",
+														"[Bot] : What else do you want to know?",
+														"[Bot] : What else?"};
 	char cadena[MAXCHARS]="";
 	char *word;
-	int i=0,random,noKnow,ask,length;
+	int i=-1,random,noKnow,ask,length;
 	bool find = false;
 
 
@@ -43,20 +56,20 @@ int main(){
 	printf("Enter one of the following words: exit, PC, btc, iphone, game\n\n");
 	setColor(RED);
 	printf("[Bot] :\tI'm awake. I'm ReiaxBot. I don't know what you want but don't bother too much.\n");
-	printf("[Bot] :\tWhat do you want?");
+	printf("[Bot] :\tWhat do you want?\n");
 	do{
 		setColor(CYAN);
 		// Input de usuario
-		printf("\n[USER]:\t");
+		printf("[USER]:\t");
 		fgets(cadena, MAXCHARS, stdin);
 		cadena[strcspn(cadena, "\n")] = 0; 
 		// Elimina el ? para que el filtro pueda encontrar la palabra
 		length = strlen(cadena);
-		for ( i = 0; i < length; i++){if (cadena[i] == '?'){ cadena[i] = ' ';}}
+		for ( int j = 0; j < length; j++){if (cadena[j] == '?'){ cadena[j] = ' ';}}
 		//TODO Busqueda de la palabra
+		find = false;
 		word = strtok(cadena, " "); //? Fragmento la frase del usuario
 		while (word != NULL) { //! Filtro para buscar una palabra en la frase de usuario
-			find = false;
 			i=0;
 			while (i <= MAXWORDS){ //* Bucle para compara palabras
 				if(strcmpi(keywords[i],word)==0){ //! Comprueba si es la misma palabra sin importar si es en minusculas o mayusculas
@@ -73,41 +86,20 @@ int main(){
 		{
 			random = rand()% MAXPHRASES; // Cambiar numero a una constante de cadena REVISARRRR
 			switch (i){
-
-			case 0:printf("%d: %s",random,cadExit[random]);break;//! Respuestas aleatorias de Exit
-
-			case 1:printf("%d: %s",random,cadPc[random]);break; //! Respuestas aleatorias de Pc
-
-			case 2:printf("%d: %s",random,cadBtc[random]);break; //! Respuestas aleatorias de BTC
-
-			case 3:printf("%d: %s",random,cadIphone[random]);break; //! Respuestas aleatorias de Iphone
-			
-			case 4:printf("%d: %s",random,cadGame[random]);break; //! Respuestas aleatorias de GAME
-
+				case 0:printf("%s\n",cadExit[random]);break;//! Respuestas aleatorias de Exit
+				case 1:printf("%s\n",cadPc[random]);break; //! Respuestas aleatorias de Pc
+				case 2:printf("%s\n",cadBtc[random]);break; //! Respuestas aleatorias de BTC
+				case 3:printf("%s\n",cadIphone[random]);break; //! Respuestas aleatorias de Iphone
+				case 4:printf("%s\n",cadGame[random]);break; //! Respuestas aleatorias de GAME
 			}
 			
 		}else{
-			noKnow = rand()% 5;
-			switch (noKnow) //! REspuestas aleatorias
-			{
-			case 0:printf("[Bot] :\tMmm, maybe you're right but I'm not really sure.");break;
-			case 1:printf("[Bot] :\tI'm not sure, but I'll do my best to help you.");break;
-			case 2:printf("[Bot] :\tWhat you say is possible, but I need more information to continue.");break;
-			case 3:printf("[Bot] :\tI don't know what to say about that.");break;
-			case 4:printf("[Bot] :\tI don't know how to respond to that...");break;
-			}
-			
+			noKnow = rand()% MAXRANDOM;
+			printf("%s\n",cadRandom[noKnow]);	
 		}
-		if (i != 0)
-		{	ask = rand()% 5;
-			switch (ask)
-			{
-			case 0:printf("\n[Bot] :\tWell, how can I help you?");break;
-			case 1:printf("\n[Bot] :\tAnything else you want to tell me?");break;
-			case 2:printf("\n[Bot] :\tDo you want to ask me about something?");break;
-			case 3:printf("\n[Bot] :\tWhat else do you want to know?");break;
-			case 4:printf("\n[Bot] :\tWhat else?");break;
-			}
+		if (i != 0){	
+			ask = rand()% MAXRANDOM;
+			printf("%s\n",cadAsk[ask]);
 		}
 		
 	}while(i != 0);
