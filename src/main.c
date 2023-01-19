@@ -17,6 +17,7 @@ int main(){
     SetConsoleCP(1252);
 	srand(time(NULL)); 
 	static const char keywords[MAXWORDS][MAXCHARS] = {"exit","PC","btc","iphone","game"};
+	static const char auxkeys[MAXWORDS][MAXCHARS] = {"no","help"};
 	//* Frases Bot
 	static const char cadBtc[MAXPHRASES][MAXCHARS] = {  "[Bot] : You'll get rich if you get one of those. And you can share it with me.",
 														"[Bot] : The Bitcoin is a cryptocurrency that now has a value of 19.029,60 $",
@@ -43,10 +44,26 @@ int main(){
 														"[Bot] : Do you want to ask me about something?",
 														"[Bot] : What else do you want to know?",
 														"[Bot] : What else?"};
+	static const char cadHelp[MAXRANDOM][MAXCHARS] = {	"[Bot] :\tIf you wish to exit, type 'Exit'.",
+														"[Bot] :\tIf you need help with pc, take it to a technician or watch a video tutorial.",
+														"[Bot] :\tIf you need help with bitcoin, better to get out of the market.",
+														"[Bot] :\tIf you need help with the purchase of an iphone, count me out.", 
+														"[Bot] :\tIf you need help passing games, check out specialized guides on those games."
+														};
+	static const char cadNo[MAXRANDOM][MAXCHARS] = {	"[Bot] :\tIf you want to exit, then exit by typing 'Exit'.",
+														"[Bot] :\tif it doesn't work, buy another PC.",
+														"[Bot] :\tAnything that has to do with bitcoin, I disavow it .",
+														"[Bot] :\tI don't know anything about iphone or apple.", 
+														"[Bot] :\tif you don't want to talk about games, then let's not talk about them."
+														};
+														
 	char cadena[MAXCHARS]="";
 	char *word;
-	int i=-1,random,noKnow,ask,length;
+	int i=0,random,noKnow,ask,length;
+	int z=0,y=-1; //? Para saber cuando encuentran la keyword. El -1 es para que el usuario pulsa enter no salga del programa.
 	bool find = false;
+	bool aux = false;
+	bool exit = false;
 
 
 	printf("\tWelcome to the future my friend\n");
@@ -54,6 +71,7 @@ int main(){
 	printf("------------------------------------------------\n\n");
 
 	printf("Enter one of the following words: exit, PC, btc, iphone, game\n\n");
+	printf("With these words: No o help\n\n");
 	setColor(RED);
 	printf("[Bot] :\tI'm awake. I'm ReiaxBot. I don't know what you want but don't bother too much.\n");
 	printf("[Bot] :\tWhat do you want?\n");
@@ -65,44 +83,60 @@ int main(){
 		cadena[strcspn(cadena, "\n")] = 0; 
 		// Elimina el ? para que el filtro pueda encontrar la palabra
 		length = strlen(cadena);
-		for ( int j = 0; j < length; j++){if (cadena[j] == '?'){ cadena[j] = ' ';}}
+		for ( int j = 0; j < length; j++){if (cadena[j] == '?' || cadena[j] == '!'){ cadena[j] = ' ';}}
 		//TODO Busqueda de la palabra
 		find = false;
-		word = strtok(cadena, " "); //? Fragmento la frase del usuario
+		aux = false;
+		exit = false;
+		word = strtok(cadena, " "); 
 		while (word != NULL) { //! Filtro para buscar una palabra en la frase de usuario
 			i=0;
 			while (i <= MAXWORDS){ //* Bucle para compara palabras
-				if(strcmpi(keywords[i],word)==0){ //! Comprueba si es la misma palabra sin importar si es en minusculas o mayusculas
+				if(strcmpi(keywords[i],word)==0){ 
 					find = true;
-					break;
+					y=i; // Guardamos la vuelta para saber que frase escoger en los switchs
+				}else if(strcmpi(auxkeys[i],word)==0){ //? Añadimos nueva linea para encontrar el help y no
+					aux = true;
+					exit = true; //? Esto impide mas adelatne que salga del programa
+					z=i; // Guardamos la vuelta para saber que frase escoger en los switchs
 				}
 				i++;
 			}
-			if (find){break;}
+			//if (find){break;}
 			word = strtok(NULL, " ");
 		}
+		//? Respuestas del Bot
 		setColor(RED);	
-		if(find)
+		if(find && aux)
 		{
-			random = rand()% MAXPHRASES; // Cambiar numero a una constante de cadena REVISARRRR
-			switch (i){
+			switch (z)
+			{
+			case 0:printf("%s\n",cadNo[y]);break; //! Respuestas con NO
+			case 1:printf("%s\n",cadHelp[y]);break; //! Respuestas con HELP
+			}
+				
+		}else if(find){
+			random = rand()% MAXPHRASES; 
+			switch (y){
 				case 0:printf("%s\n",cadExit[random]);break;//! Respuestas aleatorias de Exit
 				case 1:printf("%s\n",cadPc[random]);break; //! Respuestas aleatorias de Pc
 				case 2:printf("%s\n",cadBtc[random]);break; //! Respuestas aleatorias de BTC
 				case 3:printf("%s\n",cadIphone[random]);break; //! Respuestas aleatorias de Iphone
 				case 4:printf("%s\n",cadGame[random]);break; //! Respuestas aleatorias de GAME
 			}
-			
+
 		}else{
 			noKnow = rand()% MAXRANDOM;
-			printf("%s\n",cadRandom[noKnow]);	
+			printf("%s\n",cadRandom[noKnow]); //! Respuestas random
 		}
-		if (i != 0){	
+		// Preguntas aleatorias
+		if (y != 0 || exit){	
 			ask = rand()% MAXRANDOM;
 			printf("%s\n",cadAsk[ask]);
 		}
 		
-	}while(i != 0);
+	}while(y != 0 || exit);
+
 	getch();
 	return 0;
 }
@@ -164,3 +198,16 @@ int main(){
 // "[Bot] :\tDo you want to ask me about something?"
 // "[Bot] :\tWhat else do you want to know?"
 // "[Bot] :\tWhat else?"
+
+//? AUXILIAR PHRASES (help)
+// "[Bot] :\tIf you need help with the purchase of an iphone, count me out." 
+// "[Bot] :\tIf you need help with bitcoin, better to get out of the market." 
+// "[Bot] :\tIf you need help with pc, take it to a technician or watch a video tutorial." 
+// "[Bot] :\tIf you need help passing games, check out specialized guides on those games." 
+// "[Bot] :\tIf you wish to exit, type 'Exit'." 
+//? AUXILIAR PHRASES (NO)
+// "[Bot] :\tI don't know anything about iphone or apple." 
+// "[Bot] :\tAnything that has to do with bitcoin, I disavow it ." 
+// "[Bot] :\tif it doesn't work, buy another one." 
+// "[Bot] :\tif you don't want to talk about games, then let's not talk about them." 
+// "[Bot] :\tIf you want to exit, then exit by typing 'Exit'." 
