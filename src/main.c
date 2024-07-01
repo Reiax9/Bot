@@ -91,7 +91,7 @@ int main(){
 		word = strtok(cadena, " "); 
 		while (word != NULL) { //! Filtro para buscar una palabra en la frase de usuario
 			i=0;
-			while (i <= MAXWORDS){ //* Bucle para compara palabras
+			while (i <= MAXWORDS){ 
 				if(strcmpi(keywords[i],word)==0){ 
 					find = true;
 					y=i; // Guardamos la vuelta para saber que frase escoger en los switchs
@@ -140,74 +140,3 @@ int main(){
 	getch();
 	return 0;
 }
-
-
-
-//  && strstr(word,keywords[i])!=NULL
-
-// random = rand()% 4; Hace random del 0 al 3
-
-// fgets(cadena,llargada,stdin);
-// cadena[strcspn(cadena, "\n")] = 0; Para limpiar el buffer
-
-
-// strlen(cad) - Cuenta
-// strcat(cad1,cad2) - Concatena
-// strcpy(cad1,cad2) - Machaca
-// strncpy(cad1,cad2,longitud) - Machaca controlando el tama�o de la palabra
-// strcmp(cad1,cad2) - Compara (Case Sensitive)
-// strcmpi(cad1,cad2) - Compara (Case Insesitive)
-// strstr(cad1,cad2) - Busca dentro de la cadena principal
-// strtok(cad1, dilimitador) - Sirve para separar las palabras. 
-// Ej: word = strtok(cadena," ");
-// while (word != NULL) {
-//     printf("%s\n", word);
-//     word = strtok(NULL, " ");
-// }
-
-//! Frases del BOT
-//? BTC
-// "[Bot] :\tYou'll get rich if you get one of those. And you can share it with me."
-// "[Bot] :\tThe Bitcoin is a cryptocurrency that now has a value of 19.029,60 $"
-// "[Bot] :\tAre you a cryptobro? Because I am..."
-//? Iphone
-// "[Bot] :\tThe iphone is a very overrated brand, and very expensive."
-// "[Bot] :\tDo you hate apple people? Because I do."
-// "[Bot] :\tI was created by someone who has an iphone. I hate him :)"
-//? GAME
-// "[Bot] :\tI love video games. My favorite is sekiro, I should try it."
-// "[Bot] :\tGames like 'Call of Duty' and 'FIFA' are dead. Assimilate it."
-// "[Bot] :\tI recommend you 'hollow knight' is a very nice indie game and its gameplay is very good."
-//? PC
-// "[Bot] :\tPCs are a great advance in technology, thanks to it I exist :D" df
-// "[Bot] :\tI recommend a pc of the msi brand. Just like the same pc I was created." ed
-// "[Bot] :\tSpeaking about PCs. Never buy a mac..."
-//? EXIT
-// "[Bot] :\tGoodbye my friend! i hope to see you later. ;)"
-// "[Bot] :\tsee you later bro"
-// "[Bot] :\tGoodbye, I hope you enjoyed talking to me"
-//? RESPUEST RANDOM
-// "[Bot] :\tMmm, maybe you're right but I'm not really sure."
-// "[Bot] :\tI'm not sure, but I'll do my best to help you."
-// "[Bot] :\tWhat you say is possible, but I need more information to continue."
-// "[Bot] :\tI don't know what to say about that."
-// "[Bot] :\tI don't know how to respond to that..."
-//? PREGUNAS RANDOM
-// "[Bot] :\tWell, how can I help you?"
-// "[Bot] :\tAnything else you want to tell me?"
-// "[Bot] :\tDo you want to ask me about something?"
-// "[Bot] :\tWhat else do you want to know?"
-// "[Bot] :\tWhat else?"
-
-//? AUXILIAR PHRASES (help)
-// "[Bot] :\tIf you need help with the purchase of an iphone, count me out." 
-// "[Bot] :\tIf you need help with bitcoin, better to get out of the market." 
-// "[Bot] :\tIf you need help with pc, take it to a technician or watch a video tutorial." 
-// "[Bot] :\tIf you need help passing games, check out specialized guides on those games." 
-// "[Bot] :\tIf you wish to exit, type 'Exit'." 
-//? AUXILIAR PHRASES (NO)
-// "[Bot] :\tI don't know anything about iphone or apple." 
-// "[Bot] :\tAnything that has to do with bitcoin, I disavow it ." 
-// "[Bot] :\tif it doesn't work, buy another one." 
-// "[Bot] :\tif you don't want to talk about games, then let's not talk about them." 
-// "[Bot] :\tIf you want to exit, then exit by typing 'Exit'." 
